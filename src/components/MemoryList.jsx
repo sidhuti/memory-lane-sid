@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MemoryCard from './MemoryCard';
 import { fetchMemories } from '../api/api';
+import { PLACE_HOLDER_IMAGE } from '../constants/constants';
 
 const ListContainer = styled.div`
   padding: 16px;
@@ -10,6 +11,8 @@ const ListContainer = styled.div`
 const MemoryList = () => {
   const [memories, setMemories] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  console.log(memories);
 
   useEffect(() => {
     const loadMemories = async () => {
@@ -30,6 +33,8 @@ const MemoryList = () => {
     return <p>Loading memories...</p>;
   }
 
+
+
   return (
     <ListContainer>
       {memories.map((memory) => (
@@ -38,7 +43,7 @@ const MemoryList = () => {
           title={memory.name}
           date={memory.timestamp}
           description={memory.description}
-          image="https://via.placeholder.com/40" // Placeholder image
+          image={memory.image || PLACE_HOLDER_IMAGE}
         />
       ))}
     </ListContainer>
