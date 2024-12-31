@@ -6,6 +6,23 @@ const port = 4001
 const db = new sqlite3.Database('memories.db')
 
 app.use(express.json())
+app.use((req, res, next) => {
+  const allowedOrigin = 'http://127.0.0.1:5173'; // The specific frontend origin you want to allow
+
+  if (req.headers.origin === allowedOrigin) {
+    res.setHeader('Access-Control-Allow-Origin', allowedOrigin); // Allow the specific origin
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allow specific HTTP methods
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specific headers
+    res.setHeader('Access-Control-Allow-Credentials', 'true'); // Optional: Allow credentials (if needed)
+  }
+
+  if (req.method === 'OPTIONS') {
+    // Respond to preflight requests
+    return res.sendStatus(204);
+  }
+
+  next();
+});
 
 db.serialize(() => {
   db.run(`
