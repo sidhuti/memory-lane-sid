@@ -37,7 +37,11 @@ db.serialize(() => {
 })
 
 app.get('/memories', (req, res) => {
-  db.all('SELECT * FROM memories', (err, rows) => {
+  const { order = 'ASC'} = req.query;
+
+  const sortOrder = order === 'ASC' ? 'ASC' : 'DESC';
+
+  db.all(`SELECT * FROM memories ORDER BY timestamp ${sortOrder}`, (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message })
       return
