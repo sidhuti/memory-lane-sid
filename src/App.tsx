@@ -4,7 +4,6 @@ import MemoryLane from './pages/MemoryLane';
 import './App.css';
 
 function App() {
-  console.log('pp00');
   return (
       <Router>
         <GlobalStyles />

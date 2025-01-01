@@ -37,9 +37,9 @@ db.serialize(() => {
 })
 
 app.get('/memories', (req, res) => {
-  const { order = 'ASC'} = req.query;
+  const { sort = 'ASC'} = req.query;
 
-  const sortOrder = order === 'ASC' ? 'ASC' : 'DESC';
+  const sortOrder = sort === 'ASC' ? 'ASC' : 'DESC';
 
   db.all(`SELECT * FROM memories ORDER BY timestamp ${sortOrder}`, (err, rows) => {
     if (err) {

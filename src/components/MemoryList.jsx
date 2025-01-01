@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import MemoryCard from './MemoryCard';
-import { useFetchMemories } from '../hooks/useFetchMemories'
+import { fetchMemories } from '../api/api';
 
 import { PLACE_HOLDER_IMAGE } from '../constants/constants';
 import { AppContext } from '../context/AppContext';
@@ -11,13 +11,27 @@ const ListContainer = styled.div`
 `;
 
 const MemoryList =  () => {
-  const { state } = useContext(AppContext);
+  const { dispatch, state } = useContext(AppContext);
   const { memories, loading, error } = state;
 
-  console.log(memories);
 
-  // Fetch memories when the component mounts
-  useFetchMemories();
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch({ type: 'FETCH_START' });
+  
+      try {
+        const data = await fetchMemories();
+        dispatch({ type: 'FETCH_SUCCESS', payload: data.memories });
+      } catch (error) {
+        console.error('Error fetching memories:', error);
+        dispatch({ type: 'FETCH_ERROR', payload: error.message });
+      }
+    };
+  
+    fetchData();
+  }, []);
+
+
 
   if (loading) {
     return <p>Loading memories...</p>;

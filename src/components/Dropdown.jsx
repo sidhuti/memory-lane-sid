@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import { fetchMemories } from '../api/api';
+import { AppContext } from '../context/AppContext'
+import { useContext } from 'react';
+
 
 const DropdownContainer = styled.div`
   padding: 8px;
@@ -12,13 +16,28 @@ const Select = styled.select`
   border: 1px solid #ddd;
 `;
 
-const Dropdown = () => (
-  <DropdownContainer>
-    <Select>
-      <option value="older">Older to new</option>
-      <option value="newer">New to older</option>
+
+
+const Dropdown = () => {
+  const { dispatch } = useContext(AppContext);
+
+  const handleChange = async (option) => {
+    const data = await fetchMemories(option.target.value);
+    dispatch({ type: 'FETCH_SUCCESS', payload: data.memories });
+  }
+
+  
+  return <DropdownContainer>
+    <Select onChange={(option) => handleChange(option)}>
+    <option value="ASC">
+      Older to Newer
+    </option>
+      
+    <option value="DESC">
+      Newer to Older
+    </option>
     </Select>
   </DropdownContainer>
-);
+};
 
 export default Dropdown;

@@ -42,7 +42,6 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  console.log('mm');
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>

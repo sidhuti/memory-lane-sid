@@ -1,7 +1,11 @@
 const BASE_URL = 'http://localhost:4001';
 
-export const fetchMemories = async () => {
-  const response = await fetch(`${BASE_URL}/memories`);
+export const fetchMemories = async (sort) => {
+  const response = await fetch(
+    sort ?
+    `${BASE_URL}/memories?sort=${sort}`
+    : `${BASE_URL}/memories`
+    );
   if (!response.ok) {
     throw new Error('Failed to fetch memories');
   }
