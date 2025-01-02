@@ -16,20 +16,22 @@ const MemoryList =  () => {
 
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch({ type: 'FETCH_START' });
+    const fetchAndDispatch = async () => {
+      dispatch({ type: 'FETCH_MEMORY_START' });
   
       try {
+        // Fetch memories
         const data = await fetchMemories();
-        dispatch({ type: 'FETCH_SUCCESS', payload: data.memories });
+        dispatch({ type: 'FETCH_MEMORY_SUCCESS', payload: data.memories });
       } catch (error) {
         console.error('Error fetching memories:', error);
-        dispatch({ type: 'FETCH_ERROR', payload: error.message });
+        dispatch({ type: 'FETCH_MEMORY_ERROR', payload: error.message });
       }
     };
   
-    fetchData();
+    fetchAndDispatch();
   }, []);
+  
 
 
 

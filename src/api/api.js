@@ -12,6 +12,16 @@ export const fetchMemories = async (sort) => {
   return response.json();
 };
 
+export const fetchUser = async (email) => {
+  const response = await fetch(`${BASE_URL}/user?email=${email}`, { method: 'GET' });
+  console.log(response);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch user');
+  }
+  return response.json();
+}
+
 export const createMemory = async (memory) => {
   const response = await fetch(`${BASE_URL}/memories`, {
     method: 'POST',

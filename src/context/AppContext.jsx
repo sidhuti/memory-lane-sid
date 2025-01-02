@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from 'react';
 
 // Initial state
 const initialState = {
+  user: null,
   memories: [],
   loading: true,
   error: null,
@@ -10,28 +11,42 @@ const initialState = {
 // Reducer function
 const reducer  = (state, action) => {
   switch (action.type) {
-    case 'FETCH_SUCCESS':
+    case 'FETCH_USER_SUCCESS':
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+        error: null,
+      };
+    case 'FETCH_USER_ERROR':
+        return {
+          ...state,
+          user: null,
+          loading: false,
+          error: null,
+      };
+    case 'FETCH_MEMORY_SUCCESS':
       return {
         ...state,
         memories: action.payload,
         loading: false,
         error: null,
       };
-    case 'POST_SUCCESS':
+    case 'POST_MEMORY_SUCCESS':
       return {
         ...state,
         memories: [...state.memories, ...action.payload],
         loading: false,
         error: null,
       };
-    case 'FETCH_ERROR':
+    case 'FETCH_MEMORY_ERROR':
       return {
         ...state,
         memories: [],
         loading: false,
         error: action.payload,
       };
-    case 'FETCH_START':
+    case 'FETCH_MEMORY_START':
       return {
         ...state,
         loading: true,

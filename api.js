@@ -50,6 +50,24 @@ app.get('/memories', (req, res) => {
   })
 })
 
+app.get('/user', (req, res) => {
+  const { email } = req.query;
+
+  console.log(email);
+
+  db.get('SELECT * FROM user WHERE email = ?', [email], (err, row) => {
+    if (err) {
+      res.status(500).json({ error: err.message })
+      return
+    }
+    if (!row) {
+      res.status(404).json({ error: 'User not found' })
+      return
+    }
+    res.json({ user: row })
+  })
+});
+
 app.post('/memories', (req, res) => {
   const { name, description, timestamp, image } = req.body
 

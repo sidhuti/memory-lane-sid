@@ -23,7 +23,7 @@ const Dropdown = () => {
 
   const handleChange = async (option) => {
     const data = await fetchMemories(option.target.value);
-    dispatch({ type: 'FETCH_SUCCESS', payload: data.memories });
+    dispatch({ type: 'FETCH_MEMORY_SUCCESS', payload: data.memories });
   }
 
   
