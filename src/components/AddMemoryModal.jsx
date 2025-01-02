@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
 function AddMemoryModal({ show, handleClose, handleSave }) {
-  const [memory, setMemory] = useState({ name: "", description: "", image: "" });
+  const [memory, setMemory] = useState({ name: "", description: "", image: "", timestamp: "" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setMemory({ ...memory, [name]: value });
+    setMemory({ ...memory, [name]: value  });
   };
 
   const saveMemory = () => {
@@ -40,6 +40,15 @@ function AddMemoryModal({ show, handleClose, handleSave }) {
               value={memory.description}
               onChange={handleChange}
             />
+          </Form.Group>
+          <Form.Group controlId="memoryTimeStamp" className="mt-3">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+             type="date"
+             name="timestamp"
+             onChange={handleChange}
+            >
+            </Form.Control>
           </Form.Group>
           <Form.Group controlId="memoryImage" className="mt-3">
             <Form.Label>Image Link</Form.Label>

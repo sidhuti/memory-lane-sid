@@ -17,6 +17,13 @@ const reducer  = (state, action) => {
         loading: false,
         error: null,
       };
+    case 'POST_SUCCESS':
+      return {
+        ...state,
+        memories: [...state.memories, ...action.payload],
+        loading: false,
+        error: null,
+      };
     case 'FETCH_ERROR':
       return {
         ...state,
