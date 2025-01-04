@@ -1,8 +1,10 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { AppContext } from '../context/AppContext';
 import { fetchUser} from '../api/api';
 import { FiEdit } from 'react-icons/fi';
+import DynamicModal from './DynamicModal';
+import { Form } from "react-bootstrap";
 
 const HeaderContainer = styled.div`
   padding: 16px;
@@ -13,7 +15,7 @@ const Title = styled.h1`
   font-size: 2rem;
 `;
 
-const Description = styled.p`
+const Description = styled.div`
   font-size: 1rem;
   color: #555;
   display: inline-block;
@@ -30,8 +32,12 @@ const IconContainer = styled.div`
 
 const Header = () => {
   const { dispatch, state } = useContext(AppContext);
+  const [showModal, setShowModal] = useState(false);
   const { user, loading, error } = state;
 
+  const [userDescription, setUserDescription] = useState('');
+
+ 
   
   useEffect(() => {
     const fetchAndDispatch = async () => {
@@ -57,6 +63,9 @@ const Header = () => {
     return <p>Error loading user: {error}</p>;
   }
 
+  const handleSave = () => {
+    console.log('save clicked');
+  };
 
 
   return <HeaderContainer>
@@ -64,9 +73,27 @@ const Header = () => {
     <Description>
       {user.description}
       <IconContainer>
-        <FiEdit size={20} />
+        <FiEdit size={20} onClick={() => { setShowModal(true) }}/>
       </IconContainer>
     </Description>
+    <DynamicModal 
+           show={showModal} 
+           modalTitle="Edit Description"
+           content={      
+           <Form.Group controlId="userDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={8}
+                name="description"
+                value={userDescription || user.description}
+                onChange={(e) =>  { const { value } = e.target; setUserDescription(value); }}
+              />
+           </Form.Group> 
+           }
+           handleClose={() => setShowModal(false)}
+           handleSave={handleSave}
+    />
   </HeaderContainer>
 };
 
