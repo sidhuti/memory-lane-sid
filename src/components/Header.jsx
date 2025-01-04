@@ -5,6 +5,7 @@ import { fetchUser} from '../api/api';
 import { FiEdit } from 'react-icons/fi';
 import DynamicModal from './DynamicModal';
 import { Form } from "react-bootstrap";
+import { updateDescription } from '../api/api';
 
 const HeaderContainer = styled.div`
   padding: 16px;
@@ -36,8 +37,6 @@ const Header = () => {
   const { user, loading, error } = state;
 
   const [userDescription, setUserDescription] = useState('');
-
- 
   
   useEffect(() => {
     const fetchAndDispatch = async () => {
@@ -46,6 +45,7 @@ const Header = () => {
         const data = await fetchUser('jonDoe@test.com');
         console.log(data);
         dispatch({ type: 'FETCH_USER_SUCCESS', payload: data.user });
+        setUserDescription(data.user.description);
       } catch (error) {
         console.error('Error fetching user:', error);
         dispatch({ type: 'FETCH_USER_ERROR', payload: error.message });
@@ -64,7 +64,9 @@ const Header = () => {
   }
 
   const handleSave = () => {
-    console.log('save clicked');
+    updateDescription(user?.email, userDescription);
+    dispatch({ type: 'UPDATE_USER_DESCRIPTION', payload: userDescription });
+    setShowModal(false);
   };
 
 
@@ -86,7 +88,7 @@ const Header = () => {
                 as="textarea"
                 rows={8}
                 name="description"
-                value={userDescription || user.description}
+                value={userDescription}
                 onChange={(e) =>  { const { value } = e.target; setUserDescription(value); }}
               />
            </Form.Group> 

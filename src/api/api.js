@@ -46,6 +46,22 @@ export const updateMemory = async (id, memory) => {
   return response.json();
 };
 
+export const updateDescription = async (email, description) => {
+  const response = await fetch(`${BASE_URL}/user/description/`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify({ description, email })
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update description');
+  }
+
+  return response.json();
+} 
+
+
+
 export const deleteMemory = async (id) => {
   const response = await fetch(`${BASE_URL}/memories/${id}`, {
     method: 'DELETE',

@@ -18,6 +18,16 @@ const reducer  = (state, action) => {
         loading: false,
         error: null,
       };
+    case 'UPDATE_USER_DESCRIPTION':
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          description: action.payload,
+        },
+        loading: false,
+        error: null,
+      }
     case 'FETCH_USER_ERROR':
         return {
           ...state,

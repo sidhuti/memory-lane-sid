@@ -128,6 +128,30 @@ app.put('/memories/:id', (req, res) => {
   })
 })
 
+app.put('/user/description', (req, res) => {
+
+  const { description, email } = req.body;
+
+  if (!description | !email) {
+    res.status(400).json({
+      error: 'Please provide description and email',
+    })
+    return
+  }
+
+  const stmt = db.prepare(
+    'UPDATE user SET description = ? WHERE email = ?'
+  )
+
+  stmt.run(description, email, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message })
+      return
+    }
+    res.json({ message: 'User description updated successfully' })
+  })
+})
+
 app.delete('/memories/:id', (req, res) => {
   const { id } = req.params
   db.run('DELETE FROM memories WHERE id = ?', [id], (err) => {
