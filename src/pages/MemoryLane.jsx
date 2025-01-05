@@ -7,20 +7,24 @@ import Dropdown from '../components/Dropdown';
 import { AppContext } from "../context/AppContext";
 import { createMemory } from "../api/api";
 import { Modal, Button, Form } from "react-bootstrap";
+import SnackBar from "../components/SnackBar";
 
 const MemoryLane = () => {
 
   const [showMemoryModal, setShowMemoryModal] = useState(false);
   const [memory, setMemory] = useState({ name: "", description: "", image: "", timestamp: "" });
 
-  const { dispatch } = useContext(AppContext);
+  const { dispatch, state } = useContext(AppContext);
+  const { error } = state;
 
   const addMemory = async (newMemory) => {
-    await createMemory(newMemory);
-    dispatch({ type: 'POST_SUCCESS', payload: [newMemory]})
+    try{
+      await createMemory(newMemory);
+      dispatch({ type: 'POST_SUCCESS', payload: [newMemory]})
+    }catch (error) {
+      dispatch({ type: 'API_ERROR', payload: error.message})
+    }
   };
-
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +33,7 @@ const MemoryLane = () => {
 
   const handleSave = () => {
     addMemory(memory);
-    setShowModal(false);
+    setShowMemoryModal(false);
   };
 
 
@@ -84,6 +88,9 @@ const MemoryLane = () => {
 
         handleSave={handleSave}
       />
+    <SnackBar error={error} onClose={
+      () => dispatch({ type: 'CLEAR_ALL_ERRORS' })
+    }/>
   </div>
 };
 

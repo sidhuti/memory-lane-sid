@@ -7,17 +7,18 @@ export const fetchMemories = async (sort) => {
     : `${BASE_URL}/memories`
     );
   if (!response.ok) {
-    throw new Error('Failed to fetch memories');
+    const errorData = await response.json();
+    return errorData;
   }
   return response.json();
 };
 
 export const fetchUser = async (email) => {
   const response = await fetch(`${BASE_URL}/user?email=${email}`, { method: 'GET' });
-  console.log(response);
 
   if (!response.ok) {
-    throw new Error('Failed to fetch user');
+    const errorData = await response.json();
+    return errorData;
   }
   return response.json();
 }
@@ -29,9 +30,10 @@ export const createMemory = async (memory) => {
     body: JSON.stringify(memory),
   });
   if (!response.ok) {
-    throw new Error('Failed to create memory');
+    const apiResponse = await response.json();
+    throw new Error('xyz');
   }
-  return response.json();
+  return await response.json();
 };
 
 export const updateMemory = async (id, memory) => {
@@ -41,7 +43,8 @@ export const updateMemory = async (id, memory) => {
     body: JSON.stringify(memory),
   });
   if (!response.ok) {
-    throw new Error('Failed to update memory');
+    const errorData = await response.json();
+    return errorData;
   }
   return response.json();
 };
@@ -54,7 +57,8 @@ export const updateDescription = async (email, description) => {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to update description');
+    const errorData = await response.json();
+    return errorData;
   }
 
   return response.json();
@@ -67,7 +71,8 @@ export const deleteMemory = async (id) => {
     method: 'DELETE',
   });
   if (!response.ok) {
-    throw new Error('Failed to delete memory');
+    const errorData = await response.json();
+    return errorData;
   }
   return response.json();
 };

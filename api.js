@@ -53,7 +53,6 @@ app.get('/memories', (req, res) => {
 app.get('/user', (req, res) => {
   const { email } = req.query;
 
-  console.log(email);
 
   db.get('SELECT * FROM user WHERE email = ?', [email], (err, row) => {
     if (err) {

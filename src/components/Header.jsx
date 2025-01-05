@@ -43,7 +43,6 @@ const Header = () => {
       try {
         // Fetch user
         const data = await fetchUser('jonDoe@test.com');
-        console.log(data);
         dispatch({ type: 'FETCH_USER_SUCCESS', payload: data.user });
         setUserDescription(data.user.description);
       } catch (error) {
@@ -64,9 +63,15 @@ const Header = () => {
   }
 
   const handleSave = () => {
-    updateDescription(user?.email, userDescription);
-    dispatch({ type: 'UPDATE_USER_DESCRIPTION', payload: userDescription });
-    setShowModal(false);
+    try{
+      updateDescription(user?.email, userDescription);
+      dispatch({ type: 'UPDATE_USER_DESCRIPTION', payload: userDescription });
+      setShowModal(false);
+    } catch(error) {
+      console.error('Error updating user description:', error);
+      dispatch({ type: 'UPDATE_USER_DESCRIPTION_ERROR', payload: error.message });
+    }
+
   };
 
 

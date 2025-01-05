@@ -28,12 +28,18 @@ const reducer  = (state, action) => {
         loading: false,
         error: null,
       }
-    case 'FETCH_USER_ERROR':
+    case 'API_ERROR':
         return {
           ...state,
           user: null,
           loading: false,
-          error: null,
+          error: action.payload,
+      };
+    case 'CLEAR_ALL_ERRORS':
+      return {
+        ...state,
+        error: false,
+        loading: false,
       };
     case 'FETCH_MEMORY_SUCCESS':
       return {
@@ -48,13 +54,6 @@ const reducer  = (state, action) => {
         memories: [...state.memories, ...action.payload],
         loading: false,
         error: null,
-      };
-    case 'FETCH_MEMORY_ERROR':
-      return {
-        ...state,
-        memories: [],
-        loading: false,
-        error: action.payload,
       };
     case 'FETCH_MEMORY_START':
       return {
