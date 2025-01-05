@@ -31,7 +31,7 @@ export const createMemory = async (memory) => {
   });
   if (!response.ok) {
     const apiResponse = await response.json();
-    throw new Error('xyz');
+    throw new Error(apiResponse.error);
   }
   return await response.json();
 };

@@ -31,7 +31,6 @@ const reducer  = (state, action) => {
     case 'API_ERROR':
         return {
           ...state,
-          user: null,
           loading: false,
           error: action.payload,
       };

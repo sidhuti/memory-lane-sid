@@ -25,7 +25,7 @@ const MemoryList =  () => {
         dispatch({ type: 'FETCH_MEMORY_SUCCESS', payload: data.memories });
       } catch (error) {
         console.error('Error fetching memories:', error);
-        dispatch({ type: 'FETCH_MEMORY_ERROR', payload: error.message });
+        dispatch({ type: 'API_ERROR', payload: error.message });
       }
     };
   
@@ -38,11 +38,6 @@ const MemoryList =  () => {
   if (loading) {
     return <p>Loading memories...</p>;
   }
-
-  if (error) {
-    return <p>Error loading memories: {error}</p>;
-  }
-
 
   return (
     <ListContainer>

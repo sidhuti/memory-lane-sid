@@ -47,7 +47,7 @@ const Header = () => {
         setUserDescription(data.user.description);
       } catch (error) {
         console.error('Error fetching user:', error);
-        dispatch({ type: 'FETCH_USER_ERROR', payload: error.message });
+        dispatch({ type: 'API_ERROR', payload: error.message });
       }
     };
   
@@ -58,7 +58,7 @@ const Header = () => {
     return <p>Loading user...</p>;
   }
 
-  if (error) {
+  if (!user && error) {
     return <p>Error loading user: {error}</p>;
   }
 
@@ -69,9 +69,8 @@ const Header = () => {
       setShowModal(false);
     } catch(error) {
       console.error('Error updating user description:', error);
-      dispatch({ type: 'UPDATE_USER_DESCRIPTION_ERROR', payload: error.message });
+      dispatch({ type: 'API_ERROR', payload: error.message });
     }
-
   };
 
 
