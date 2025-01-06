@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import styled from 'styled-components';
-import { AppContext } from '../context/AppContext';
+import { AppContext, AppContextType } from '../context/AppContext';
 import { fetchUser} from '../api/api';
 import { FiEdit } from 'react-icons/fi';
 import DynamicModal from './DynamicModal';
@@ -32,7 +32,7 @@ const IconContainer = styled.div`
 
 
 const Header = () => {
-  const { dispatch, state } = useContext<any>(AppContext);
+  const { dispatch, state } = useContext<AppContextType| undefined>(AppContext) || {};
   const [showModal, setShowModal] = useState(false);
   const { user, loading, error } = state;
 
@@ -45,7 +45,7 @@ const Header = () => {
         const data = await fetchUser('jonDoe@test.com');
         dispatch({ type: 'FETCH_USER_SUCCESS', payload: data.user });
         setUserDescription(data.user.description);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching user:', error);
         dispatch({ type: 'API_ERROR', payload: error.message });
       }
@@ -67,7 +67,7 @@ const Header = () => {
       updateDescription(user?.email, userDescription);
       dispatch({ type: 'UPDATE_USER_DESCRIPTION', payload: userDescription });
       setShowModal(false);
-    } catch(error) {
+    } catch(error: any) {
       console.error('Error updating user description:', error);
       dispatch({ type: 'API_ERROR', payload: error.message });
     }

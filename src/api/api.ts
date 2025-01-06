@@ -1,6 +1,7 @@
-import { BASE_URL } from "../constants/constants";
+import { BASE_URL, SORT, Memory } from "../constants/constants";
 
-export const fetchMemories = async (sort) => {
+
+export const fetchMemories = async (sort? : SORT) => {
   const response = await fetch(
     sort ?
     `${BASE_URL}/memories?sort=${sort}`
@@ -13,7 +14,7 @@ export const fetchMemories = async (sort) => {
   return response.json();
 };
 
-export const fetchUser = async (email) => {
+export const fetchUser = async (email: string) => {
   const response = await fetch(`${BASE_URL}/user?email=${email}`, { method: 'GET' });
 
   if (!response.ok) {
@@ -23,7 +24,7 @@ export const fetchUser = async (email) => {
   return response.json();
 }
 
-export const createMemory = async (memory) => {
+export const createMemory = async (memory: Memory) => {
   const response = await fetch(`${BASE_URL}/memories`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -36,7 +37,7 @@ export const createMemory = async (memory) => {
   return await response.json();
 };
 
-export const updateMemory = async (id, memory) => {
+export const updateMemory = async (id : string, memory: Memory) => {
   const response = await fetch(`${BASE_URL}/memories/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -49,7 +50,7 @@ export const updateMemory = async (id, memory) => {
   return response.json();
 };
 
-export const updateDescription = async (email, description) => {
+export const updateDescription = async (email : string, description : string) => {
   const response = await fetch(`${BASE_URL}/user/description/`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json'},
@@ -66,7 +67,7 @@ export const updateDescription = async (email, description) => {
 
 
 
-export const deleteMemory = async (id) => {
+export const deleteMemory = async (id: string) => {
   const response = await fetch(`${BASE_URL}/memories/${id}`, {
     method: 'DELETE',
   });

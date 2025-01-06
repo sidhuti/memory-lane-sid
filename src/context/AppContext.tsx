@@ -1,14 +1,20 @@
 import React, { createContext, useReducer } from 'react';
+import { Memory } from '../constants/constants'
 
 interface User {
   id: string,
-  name: string,
+  first_name: string,
+  last_name: string,
+  email: string,
   description: string
 }
 
+
+
+
 interface State {
   user: User | null
-  memories: any[],
+  memories: Memory[],
   loading: boolean,
   error: { message: string}
 }
@@ -89,7 +95,7 @@ const reducer  = (state : State, action: Action) => {
   }
 };
 
-interface AppContextType {
+export interface AppContextType {
   state: State;
   dispatch: React.Dispatch<Action>;
 }
