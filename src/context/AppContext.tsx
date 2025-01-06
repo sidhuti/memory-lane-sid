@@ -1,5 +1,29 @@
 import React, { createContext, useReducer } from 'react';
 
+interface User {
+  id: string,
+  name: string,
+  description: string
+}
+
+interface State {
+  user: User | null
+  memories: any[],
+  loading: boolean,
+  error: { message: string}
+}
+
+// Define action types
+type Action =
+  | { type: 'FETCH_USER_SUCCESS'; payload: User }
+  | { type: 'UPDATE_USER_DESCRIPTION'; payload: string }
+  | { type: 'API_ERROR'; payload: string }
+  | { type: 'CLEAR_ALL_ERRORS' }
+  | { type: 'FETCH_MEMORY_SUCCESS'; payload: any[] }
+  | { type: 'POST_MEMORY_SUCCESS'; payload: any[] }
+  | { type: 'FETCH_MEMORY_START' };
+
+
 // Initial state
 const initialState = {
   user: null,
@@ -9,7 +33,7 @@ const initialState = {
 };
 
 // Reducer function
-const reducer  = (state, action) => {
+const reducer  = (state : State, action: Action) => {
   switch (action.type) {
     case 'FETCH_USER_SUCCESS':
       return {
@@ -65,12 +89,17 @@ const reducer  = (state, action) => {
   }
 };
 
+interface AppContextType {
+  state: State;
+  dispatch: React.Dispatch<Action>;
+}
+
 // Create Context
-export const AppContext = createContext();
+export const AppContext = createContext<AppContextType | undefined>(undefined);
 
 // Context Provider Component
-export const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export const AppProvider: React.FC<{children: React.ReactNode}> = ({ children }: { children: React.ReactNode}) => {
+  const [state, dispatch] = useReducer<React.Reducer<State, Action>>(reducer, initialState);
 
 
   return (

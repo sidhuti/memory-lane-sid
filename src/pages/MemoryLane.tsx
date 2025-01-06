@@ -6,7 +6,7 @@ import DynamicModal from "../components/DynamicModal";
 import Dropdown from '../components/Dropdown';
 import { AppContext } from "../context/AppContext";
 import { createMemory } from "../api/api";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import SnackBar from "../components/SnackBar";
 
 const MemoryLane = () => {
@@ -26,7 +26,7 @@ const MemoryLane = () => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setMemory({ ...memory, [name]: value  });
   };
