@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:4001';
+import { BASE_URL } from "../constants/constants";
 
 export const fetchMemories = async (sort) => {
   const response = await fetch(

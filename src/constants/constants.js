@@ -1,1 +1,0 @@
-export const PLACE_HOLDER_IMAGE = 'https://via.placeholder.com/40';

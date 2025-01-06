@@ -1,7 +1,12 @@
-import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
-function DynamicModal({ show, handleClose, modalTitle, content, handleSave }) {
+function DynamicModal({ show, handleClose, modalTitle, content, handleSave } : {
+  show: boolean,
+  handleClose: any,
+  modalTitle: string,
+  content: any,
+  handleSave: any
+}) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>

@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { AppContext } from '../context/AppContext';
 import { fetchUser} from '../api/api';
@@ -32,7 +32,7 @@ const IconContainer = styled.div`
 
 
 const Header = () => {
-  const { dispatch, state } = useContext(AppContext);
+  const { dispatch, state } = useContext<any>(AppContext);
   const [showModal, setShowModal] = useState(false);
   const { user, loading, error } = state;
 
@@ -93,7 +93,7 @@ const Header = () => {
                 rows={8}
                 name="description"
                 value={userDescription}
-                onChange={(e) =>  { const { value } = e.target; setUserDescription(value); }}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>  { const { value } = e.target; setUserDescription(value); }}
               />
            </Form.Group> 
            }

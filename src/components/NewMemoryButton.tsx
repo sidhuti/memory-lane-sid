@@ -15,6 +15,6 @@ const Button = styled.button`
   right: 16px;
 `;
 
-const NewMemoryButton = ({ onClick }) => <Button onClick={onClick}>+ New Memory</Button>;
+const NewMemoryButton = ({ onClick } : { onClick: any }) => <Button onClick={onClick}>+ New Memory</Button>;
 
 export default NewMemoryButton;

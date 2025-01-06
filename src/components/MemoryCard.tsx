@@ -30,7 +30,7 @@ const Date = styled.p`
   color: #777;
 `;
 
-const MemoryCard = ({ title, date, description, image }) => (
+const MemoryCard = ({ title, date, description, image } : { title: string, date: Date, description:string, image: string}) => (
   <Card>
     <Image src={image} alt="Memory" />
     <Content>

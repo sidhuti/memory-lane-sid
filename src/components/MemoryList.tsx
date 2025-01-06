@@ -11,7 +11,7 @@ const ListContainer = styled.div`
 `;
 
 const MemoryList =  () => {
-  const { dispatch, state } = useContext(AppContext);
+  const { dispatch, state } = useContext<any>(AppContext);
   const { memories, loading, error } = state;
 
 

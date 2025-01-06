@@ -19,16 +19,16 @@ const Select = styled.select`
 
 
 const Dropdown = () => {
-  const { dispatch } = useContext(AppContext);
+  const { dispatch } = useContext<any>(AppContext);
 
-  const handleChange = async (option) => {
+  const handleChange = async (option: React.ChangeEvent<HTMLSelectElement>) => {
     const data = await fetchMemories(option.target.value);
     dispatch({ type: 'FETCH_MEMORY_SUCCESS', payload: data.memories });
   }
 
   
   return <DropdownContainer>
-    <Select onChange={(option) => handleChange(option)}>
+    <Select onChange={(option : React.ChangeEvent<HTMLSelectElement>) => handleChange(option)}>
     <option value="ASC">
       Older to Newer
     </option>
