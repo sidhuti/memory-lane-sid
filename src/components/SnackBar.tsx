@@ -1,7 +1,7 @@
 import React from "react";
 import { Toast, ToastContainer } from "react-bootstrap";
 
-function SnackBar({ error, onClose }: { error: {message: string}, onClose: () => void}) {
+function SnackBar({ error, onClose }: { error: string, onClose: () => void}) {
     return (
         <ToastContainer position="bottom-end" className="p-3">
           <Toast 

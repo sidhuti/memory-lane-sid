@@ -8,16 +8,17 @@ import { AppContext } from "../context/AppContext";
 import { createMemory } from "../api/api";
 import { Form } from "react-bootstrap";
 import SnackBar from "../components/SnackBar";
+import { Memory } from "../constants/constants";
 
 const MemoryLane = () => {
 
   const [showMemoryModal, setShowMemoryModal] = useState(false);
-  const [memory, setMemory] = useState({ name: "", description: "", image: "", timestamp: "" });
+  const [memory, setMemory] = useState<Memory>({ id: 1, name: "", description: "", image: "", timestamp: "" });
 
   const { dispatch, state } = useContext(AppContext);
   const { error } = state;
 
-  const addMemory = async (newMemory) => {
+  const addMemory = async (newMemory: Memory) => {
     try{
       await createMemory(newMemory);
       dispatch({ type: 'POST_SUCCESS', payload: [newMemory]})
@@ -26,7 +27,7 @@ const MemoryLane = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMemory({ ...memory, [name]: value  });
   };
@@ -84,8 +85,6 @@ const MemoryLane = () => {
             />
           </Form.Group>
         </Form>}
-        handleChange={handleChange}
-
         handleSave={handleSave}
       />
     <SnackBar error={error} onClose={
