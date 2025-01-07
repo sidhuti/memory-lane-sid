@@ -11,21 +11,21 @@ const ListContainer = styled.div`
 `;
 
 const MemoryList =  () => {
-  const { dispatch, state } = useContext<AppContextType| undefined>(AppContext);
-  const { memories, loading, error } = state;
+  const { dispatch, state } = useContext<AppContextType| undefined>(AppContext) || {};
+  const { memories, loading } = state || {};
 
 
   useEffect(() => {
     const fetchAndDispatch = async () => {
-      dispatch({ type: 'FETCH_MEMORY_START' });
+      dispatch?.({ type: 'FETCH_MEMORY_START' });
   
       try {
         // Fetch memories
         const data = await fetchMemories();
-        dispatch({ type: 'FETCH_MEMORY_SUCCESS', payload: data.memories });
+        dispatch?.({ type: 'FETCH_MEMORY_SUCCESS', payload: data.memories });
       } catch (error: any) {
         console.error('Error fetching memories:', error);
-        dispatch({ type: 'API_ERROR', payload: error.message });
+        dispatch?.({ type: 'API_ERROR', payload: error.message });
       }
     };
   
@@ -41,7 +41,7 @@ const MemoryList =  () => {
 
   return (
     <ListContainer>
-      {memories.map((memory: Memory) => (
+      {memories?.map((memory: Memory) => (
         <MemoryCard
           key={memory.id}
           title={memory.name}

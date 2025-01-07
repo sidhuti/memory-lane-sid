@@ -13,7 +13,7 @@ interface User {
 
 
 interface State {
-  user: User | null
+  user: User
   memories: Memory[],
   loading: boolean,
   error: { message: string}

@@ -34,7 +34,7 @@ const IconContainer = styled.div`
 const Header = () => {
   const { dispatch, state } = useContext<AppContextType| undefined>(AppContext) || {};
   const [showModal, setShowModal] = useState(false);
-  const { user, loading, error } = state;
+  const { user, loading, error } = state || {};
 
   const [userDescription, setUserDescription] = useState('');
   
@@ -43,11 +43,11 @@ const Header = () => {
       try {
         // Fetch user
         const data = await fetchUser('jonDoe@test.com');
-        dispatch({ type: 'FETCH_USER_SUCCESS', payload: data.user });
+        dispatch?.({ type: 'FETCH_USER_SUCCESS', payload: data.user });
         setUserDescription(data.user.description);
       } catch (error: any) {
         console.error('Error fetching user:', error);
-        dispatch({ type: 'API_ERROR', payload: error.message });
+        dispatch?.({ type: 'API_ERROR', payload: error.message });
       }
     };
   
@@ -58,18 +58,19 @@ const Header = () => {
     return <p>Loading user...</p>;
   }
 
-  if (!user && error) {
-    return <p>Error loading user: {error}</p>;
+  if (!user || error) {
+    return <p>Error loading user: {error?.message}</p>;
   }
+
 
   const handleSave = () => {
     try{
       updateDescription(user?.email, userDescription);
-      dispatch({ type: 'UPDATE_USER_DESCRIPTION', payload: userDescription });
+      dispatch?.({ type: 'UPDATE_USER_DESCRIPTION', payload: userDescription });
       setShowModal(false);
     } catch(error: any) {
       console.error('Error updating user description:', error);
-      dispatch({ type: 'API_ERROR', payload: error.message });
+      dispatch?.({ type: 'API_ERROR', payload: error.message });
     }
   };
 

@@ -15,15 +15,15 @@ const MemoryLane = () => {
   const [showMemoryModal, setShowMemoryModal] = useState(false);
   const [memory, setMemory] = useState<Memory>({ id: 1, name: "", description: "", image: "", timestamp: "" });
 
-  const { dispatch, state } = useContext(AppContext);
-  const { error } = state;
+  const { dispatch, state } = useContext(AppContext) || {};
+  const { error } = state  || {};
 
   const addMemory = async (newMemory: Memory) => {
     try{
       await createMemory(newMemory);
-      dispatch({ type: 'POST_SUCCESS', payload: [newMemory]})
+      dispatch?.({ type: 'POST_MEMORY_SUCCESS', payload: [newMemory]})
     }catch (error: any) {
-      dispatch({ type: 'API_ERROR', payload: error.message})
+      dispatch?.({ type: 'API_ERROR', payload: error.message})
     }
   };
 
@@ -87,8 +87,8 @@ const MemoryLane = () => {
         </Form>}
         handleSave={handleSave}
       />
-    <SnackBar error={error} onClose={
-      () => dispatch({ type: 'CLEAR_ALL_ERRORS' })
+    <SnackBar errorMessage={error?.message} onClose={
+      () => dispatch?.({ type: 'CLEAR_ALL_ERRORS' })
     }/>
   </div>
 };
