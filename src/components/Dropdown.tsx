@@ -1,3 +1,4 @@
+import React from "react";
 import styled from 'styled-components';
 import { fetchMemories } from '../api/api';
 import { AppContext } from '../context/AppContext'

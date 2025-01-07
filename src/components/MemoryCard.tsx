@@ -1,3 +1,4 @@
+import React from "react";
 import styled from 'styled-components';
 
 const Card = styled.div`
@@ -30,7 +31,7 @@ const Date = styled.p`
   color: #777;
 `;
 
-const MemoryCard = ({ title, date, description, image } : { title: string, date: Date, description:string, image: string}) => (
+const MemoryCard = ({ title, date, description, image } : { title: string, date: string, description:string, image: string}) => (
   <Card>
     <Image src={image} alt="Memory" />
     <Content>
