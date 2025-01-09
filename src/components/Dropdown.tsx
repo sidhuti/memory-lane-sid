@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components';
 import { fetchMemories } from '../api/api';
-import { AppContext } from '../context/AppContext'
+import { AppContext, AppContextType } from '../context/AppContext'
 import { useContext } from 'react';
 import { SORT } from '../constants/constants';
 
@@ -21,11 +21,11 @@ const Select = styled.select`
 
 
 const Dropdown = () => {
-  const { dispatch } = useContext<any>(AppContext);
+  const { dispatch } = useContext<AppContextType | undefined>(AppContext) || {};
 
   const handleChange = async (option: React.ChangeEvent<HTMLSelectElement>) => {
     const data = await fetchMemories(option.target.value as SORT);
-    dispatch({ type: 'FETCH_MEMORY_SUCCESS', payload: data.memories });
+    dispatch?.({ type: 'FETCH_MEMORY_SUCCESS', payload: data.memories });
   }
 
   

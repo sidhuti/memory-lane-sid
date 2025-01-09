@@ -7,6 +7,7 @@ import DynamicModal from './DynamicModal';
 import { Form } from "react-bootstrap";
 import { updateDescription } from '../api/api';
 
+
 const HeaderContainer = styled.div`
   padding: 16px;
   text-align: center;
@@ -45,9 +46,11 @@ const Header = () => {
         const data = await fetchUser('jonDoe@test.com');
         dispatch?.({ type: 'FETCH_USER_SUCCESS', payload: data.user });
         setUserDescription(data.user.description);
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Error fetching user:', error);
-        dispatch?.({ type: 'API_ERROR', payload: error.message });
+        if(error instanceof Error){ 
+          dispatch?.({ type: 'API_ERROR', payload: error.message });
+        }
       }
     };
   
@@ -68,9 +71,11 @@ const Header = () => {
       updateDescription(user?.email, userDescription);
       dispatch?.({ type: 'UPDATE_USER_DESCRIPTION', payload: userDescription });
       setShowModal(false);
-    } catch(error: any) {
+    } catch(error: unknown) {
       console.error('Error updating user description:', error);
-      dispatch?.({ type: 'API_ERROR', payload: error.message });
+      if (error instanceof Error) {
+        dispatch?.({ type: 'API_ERROR', payload: error.message });
+      }
     }
   };
 

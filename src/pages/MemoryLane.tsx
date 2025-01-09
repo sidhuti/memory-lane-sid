@@ -22,8 +22,11 @@ const MemoryLane = () => {
     try{
       await createMemory(newMemory);
       dispatch?.({ type: 'POST_MEMORY_SUCCESS', payload: [newMemory]})
-    }catch (error: any) {
-      dispatch?.({ type: 'API_ERROR', payload: error.message})
+    }catch (error: unknown) {
+      console.error('Error adding new memory:', error);
+      if (error instanceof Error) {
+        dispatch?.({ type: 'API_ERROR', payload: error.message})
+      }
     }
   };
 

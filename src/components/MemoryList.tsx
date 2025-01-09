@@ -23,9 +23,11 @@ const MemoryList =  () => {
         // Fetch memories
         const data = await fetchMemories();
         dispatch?.({ type: 'FETCH_MEMORY_SUCCESS', payload: data.memories });
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Error fetching memories:', error);
-        dispatch?.({ type: 'API_ERROR', payload: error.message });
+        if (error instanceof Error) {
+          dispatch?.({ type: 'API_ERROR', payload: error.message });
+        }
       }
     };
   
