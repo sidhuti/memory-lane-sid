@@ -2,6 +2,8 @@ export const PLACE_HOLDER_IMAGE = 'https://encrypted-tbn0.gstatic.com/images?q=t
 
 export const BASE_URL = 'http://localhost:4001';
 
+export const DATE_FORMAT = 'MMM Do YYYY';
+
 export enum SORT {
     ASC = 'ASC',
     DESC = 'DESC'
