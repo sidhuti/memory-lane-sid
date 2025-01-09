@@ -13,10 +13,10 @@ interface User {
 
 
 interface State {
-  user: User
+  user?: User
   memories: Memory[],
   loading: boolean,
-  error: { message: string}
+  error?: { message: string}
 }
 
 // Define action types
@@ -25,17 +25,17 @@ type Action =
   | { type: 'UPDATE_USER_DESCRIPTION'; payload: string }
   | { type: 'API_ERROR'; payload: string }
   | { type: 'CLEAR_ALL_ERRORS' }
-  | { type: 'FETCH_MEMORY_SUCCESS'; payload: any[] }
-  | { type: 'POST_MEMORY_SUCCESS'; payload: any[] }
+  | { type: 'FETCH_MEMORY_SUCCESS'; payload: Memory[] }
+  | { type: 'POST_MEMORY_SUCCESS'; payload: Memory[] }
   | { type: 'FETCH_MEMORY_START' };
 
 
 // Initial state
-const initialState = {
-  user: null,
+const initialState: State = {
+  user: undefined,
   memories: [],
   loading: true,
-  error: null,
+  error: undefined,
 };
 
 // Reducer function
@@ -46,9 +46,12 @@ const reducer  = (state : State, action: Action) => {
         ...state,
         user: action.payload,
         loading: false,
-        error: null,
+        error: undefined,
       };
     case 'UPDATE_USER_DESCRIPTION':
+      if (!state.user) {
+        return state; // No user to update
+      }
       return {
         ...state,
         user: {
@@ -56,18 +59,18 @@ const reducer  = (state : State, action: Action) => {
           description: action.payload,
         },
         loading: false,
-        error: null,
+        error: undefined,
       }
     case 'API_ERROR':
         return {
           ...state,
           loading: false,
-          error: action.payload,
+          error: { message: action.payload },
       };
     case 'CLEAR_ALL_ERRORS':
       return {
         ...state,
-        error: false,
+        error: undefined,
         loading: false,
       };
     case 'FETCH_MEMORY_SUCCESS':
@@ -75,20 +78,20 @@ const reducer  = (state : State, action: Action) => {
         ...state,
         memories: action.payload,
         loading: false,
-        error: null,
+        error: undefined,
       };
     case 'POST_MEMORY_SUCCESS':
       return {
         ...state,
         memories: [...state.memories, ...action.payload],
         loading: false,
-        error: null,
+        error: undefined,
       };
     case 'FETCH_MEMORY_START':
       return {
         ...state,
         loading: true,
-        error: null,
+        error: undefined,
       };
     default:
       return state;
