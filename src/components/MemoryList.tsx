@@ -46,6 +46,7 @@ const MemoryList =  () => {
       {memories?.map((memory: Memory) => (
         <MemoryCard
           key={memory.id}
+          id={memory.id}
           title={memory.name}
           date={memory.timestamp}
           description={memory.description}

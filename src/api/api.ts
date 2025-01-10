@@ -67,7 +67,7 @@ export const updateDescription = async (email : string, description : string) =>
 
 
 
-export const deleteMemory = async (id: string) => {
+export const deleteMemory = async (id: number) => {
   const response = await fetch(`${BASE_URL}/memories/${id}`, {
     method: 'DELETE',
   });

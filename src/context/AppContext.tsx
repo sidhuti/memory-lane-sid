@@ -24,6 +24,7 @@ type Action =
   | { type: 'FETCH_USER_SUCCESS'; payload: User }
   | { type: 'UPDATE_USER_DESCRIPTION'; payload: string }
   | { type: 'API_ERROR'; payload: string }
+  | { type: 'DELETE_MEMORY_SUCCESS'; payload: number }
   | { type: 'CLEAR_ALL_ERRORS' }
   | { type: 'FETCH_MEMORY_SUCCESS'; payload: Memory[] }
   | { type: 'POST_MEMORY_SUCCESS'; payload: Memory[] }
@@ -48,6 +49,13 @@ const reducer  = (state : State, action: Action) => {
         loading: false,
         error: undefined,
       };
+    case 'DELETE_MEMORY_SUCCESS':
+      return {
+        ...state,
+        memories: state.memories.filter(item => item.id !== action.payload),
+        loading: false,
+        error: undefined,
+      }
     case 'UPDATE_USER_DESCRIPTION':
       if (!state.user) {
         return state; // No user to update
