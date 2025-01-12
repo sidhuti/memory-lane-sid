@@ -11,11 +11,12 @@ Users can also share memory lane to others via shareable link.
 A memory lane is a collection of events that happened in a chronological order. Each event consists of a title, a description, a timestamp, and at least one image.
 
 ## Assumptions
-1) App currently the app is setup to accomodate only one user and there is no auth configured as a result.
+1) App currently is setup to accomodate only one user and there is no auth configured as a result.
+
 2) App currently Supports only English.
 
 
 
-### Inspiration mockup
+### GIF/ VIDEO FILE
 
-![Memory lane mockup](./memory_lane.png)
+[scrnli_N6jCitL23B1tK1.webm](https://github.com/user-attachments/assets/b3bd8f37-ff75-4939-8124-e8037bb78a28)
