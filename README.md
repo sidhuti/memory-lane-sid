@@ -19,4 +19,3 @@ A memory lane is a collection of events that happened in a chronological order. 
 
 ### GIF/ VIDEO FILE
 
-[scrnli_N6jCitL23B1tK1.webm](https://github.com/user-attachments/assets/b3bd8f37-ff75-4939-8124-e8037bb78a28)
