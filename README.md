@@ -1,4 +1,4 @@
-# Planned coding challenge: Memory lane
+# Memory lane (Coding Tech Assesment)
 
 **Please avoid initiating pull requests on this repository or forking this repository. To submit your solution, either set up a repository on your own account or forward a zip file to the appropriate contact within our talent team.**
 
