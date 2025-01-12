@@ -94,7 +94,7 @@ const Header = () => {
   return <HeaderContainer>
     <Title>{`${user.first_name} ${user.last_name}'s memory lane`}
       <IconContainer>
-          <Share size={20} style={{ marginRight: '8px', verticalAlign: 'baseline' }} onClick={(user: User) => handleShare({user})}/> 
+          <Share size={20} style={{ marginRight: '8px', verticalAlign: 'baseline' }} onClick={() => handleShare({user})}/> 
       </IconContainer>
     </Title>
     <Description>

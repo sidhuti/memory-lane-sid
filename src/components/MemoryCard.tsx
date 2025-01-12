@@ -59,7 +59,7 @@ const MemoryCard = ({ id, title, date, description, image } : { id: number, titl
     if (confirmDelete) {
       try{
         await deleteMemory(id);
-        dispatch({ type: 'DELETE_MEMORY_SUCCESS', payload: id });
+        dispatch?.({ type: 'DELETE_MEMORY_SUCCESS', payload: id });
       }catch(error: unknown){
         console.error('Error deleting memory:', error);
         if (error instanceof Error) {
