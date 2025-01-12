@@ -5,6 +5,7 @@
 ### Problem definition
 
 An app that allows users to create, view and edit memories.
+Users can also share memory lane to others via shareable link.
 
 A memory lane is a collection of events that happened in a chronological order. Each event consists of a title, a description, a timestamp, and at least one image.
 
