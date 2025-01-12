@@ -2,7 +2,9 @@ import React, { useEffect, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { AppContext, AppContextType } from '../context/AppContext';
 import { fetchUser} from '../api/api';
+import { USER_EMAIL, User } from '../constants/constants';
 import { FiEdit } from 'react-icons/fi';
+import { IoShareSocialOutline as Share } from 'react-icons/io5';
 import DynamicModal from './DynamicModal';
 import { Form } from "react-bootstrap";
 import { updateDescription } from '../api/api';
@@ -15,6 +17,7 @@ const HeaderContainer = styled.div`
 
 const Title = styled.h1`
   font-size: 2rem;
+  display: inline-block;
 `;
 
 const Description = styled.div`
@@ -23,8 +26,7 @@ const Description = styled.div`
   display: inline-block;
 `;
 
-const IconContainer = styled.div`
-  vertical-align: text-bottom; 
+const IconContainer = styled.div` 
   display: inline-block;
   margin-left: 10px;
   color: #007bff;
@@ -43,7 +45,7 @@ const Header = () => {
     const fetchAndDispatch = async () => {
       try {
         // Fetch user
-        const data = await fetchUser('jonDoe@test.com');
+        const data = await fetchUser(USER_EMAIL);
         dispatch?.({ type: 'FETCH_USER_SUCCESS', payload: data.user });
         setUserDescription(data.user.description);
       } catch (error: unknown) {
@@ -80,12 +82,25 @@ const Header = () => {
   };
 
 
+  const handleShare = async ({ user } : { user: User}) => {
+        await navigator.share({
+          title: `${user.first_name} ${user.last_name}'s memory lane`,
+          text: `Hey! ${user.first_name} ${user.last_name} wants to share this memory lane with you !!!`,
+          url: window.location.href,
+        });
+  } 
+
+
   return <HeaderContainer>
-    <Title>{`${user.first_name} ${user.last_name}'s memory lane`}</Title>
+    <Title>{`${user.first_name} ${user.last_name}'s memory lane`}
+      <IconContainer>
+          <Share size={20} style={{ marginRight: '8px', verticalAlign: 'baseline' }} onClick={(user: User) => handleShare({user})}/> 
+      </IconContainer>
+    </Title>
     <Description>
       {user.description}
       <IconContainer>
-        <FiEdit size={20} onClick={() => { setShowModal(true) }}/>
+        <FiEdit style={{   verticalAlign: 'text-bottom' }}size={20} onClick={() => { setShowModal(true) }}/>
       </IconContainer>
     </Description>
     <DynamicModal 

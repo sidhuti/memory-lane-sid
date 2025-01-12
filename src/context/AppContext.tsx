@@ -1,13 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { Memory } from '../constants/constants'
-
-interface User {
-  id: string,
-  first_name: string,
-  last_name: string,
-  email: string,
-  description: string
-}
+import { Memory, User } from '../constants/constants'
 
 
 
